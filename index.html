@@ -11,7 +11,36 @@ body{
   font-family:Arial;
   background:#061a13;
   color:white;
+  overflow-x: hidden;
 }
+
+/* ===== IMAGENS NAS LATERAIS ===== */
+.lado-esquerdo {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    z-index: 10;
+    opacity: 0.9;
+}
+
+.lado-direito {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 120px;
+    z-index: 10;
+    opacity: 0.9;
+}
+
+.logo-centro {
+    display: block;
+    width: 200px;
+    margin: 10px auto;
+}
+/* ================================= */
 
 /* HEADER */
 header{
@@ -184,11 +213,18 @@ button{
 
 <body>
 
+<!-- IMAGENS COM OS NOMES CERTINHOS QUE VOCÊ COLOCOU -->
+<img src="tigre.png" class="lado-esquerdo" alt="Tigre">
+<img src="coelho.png" class="lado-direito" alt="Coelho">
+
 <header>
   <div>BetMaster</div>
   <div class="balance">R$ <span id="saldo">100</span></div>
   <div class="loginBtn" onclick="abrirLogin()">Login</div>
 </header>
+
+<!-- LOGO NO TOPO -->
+<img src="logo.png" class="logo-centro" alt="Logo Fortune Tiger">
 
 <div class="banner456">🎰 Bônus até R$5.555</div>
 
@@ -332,7 +368,6 @@ function spin(){
   if(r1.innerText===r2.innerText && r2.innerText===r3.innerText){
     saldo+=100;
     status.innerText="🔥 GANHOU!";
-    new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3").play();
   }else{
     status.innerText="❌ Perdeu";
   }
@@ -357,4 +392,5 @@ setInterval(()=>{
 </script>
 
 </body>
- </html>
+    </html>
+  
