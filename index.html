@@ -3,85 +3,225 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BetMaster Ultimate PRO</title>
+<title>BetMaster APP</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#071f16;color:white;}
-header{background:linear-gradient(90deg,#16a34a,#064e3b);padding:12px;display:flex;justify-content:space-between;}
-input{padding:10px;border-radius:8px;border:none;width:80%;}
-button{padding:10px;border:none;border-radius:8px;background:#22c55e;color:white;}
-
-.carousel{display:flex;overflow:auto;padding:10px;}
-.banner{min-width:80%;height:120px;background:#14532d;border-radius:10px;display:flex;align-items:center;justify-content:center;}
-
-.games{display:flex;gap:10px;overflow:auto;padding:10px;}
-.card{min-width:120px;height:100px;background:#14532d;border-radius:10px;display:flex;align-items:end;justify-content:center;}
-
-#slot{display:none;text-align:center;}
-.reel{font-size:40px;}
-
-.footer{position:fixed;bottom:0;width:100%;display:flex;justify-content:space-around;background:#14532d;padding:10px;}
-
-#chatBox,#rankBox{position:fixed;bottom:80px;width:160px;background:#052e16;padding:10px;font-size:11px;border-radius:10px;}
-#chatBox{right:10px;}
-#rankBox{left:10px;}
-
-#notif{position:fixed;top:10px;right:10px;background:#16a34a;padding:10px;border-radius:10px;display:none;}
-
-#modal,#depositoTela,#dashboard{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:black;color:white;display:none;justify-content:center;align-items:center;flex-direction:column;
+body{
+  margin:0;
+  font-family:Arial;
+  background:#061a13;
+  color:white;
 }
+
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#16a34a,#064e3b);
+  padding:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.loginBtn{
+  background:#facc15;
+  color:black;
+  padding:6px 12px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.balance{color:#facc15}
+
+/* BANNER */
+.banner456{
+  background:linear-gradient(90deg,#16a34a,#22c55e);
+  padding:12px;
+  text-align:center;
+  font-weight:bold;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{opacity:1}
+  50%{opacity:0.7}
+  100%{opacity:1}
+}
+
+/* JACKPOT */
+.jackpot{
+  text-align:center;
+  font-size:22px;
+  color:#facc15;
+  font-weight:bold;
+  margin:10px;
+  animation:zoom 1.5s infinite alternate;
+}
+
+@keyframes zoom{
+  from{transform:scale(1)}
+  to{transform:scale(1.1)}
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  justify-content:space-around;
+  margin:10px;
+}
+
+.tab{
+  padding:10px;
+  background:#14532d;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.activeTab{background:#22c55e}
+
+/* PAGES */
+.page{display:none;padding-bottom:60px}
+.active{display:block}
+
+/* GAMES */
+.games{display:flex;overflow-x:auto}
+
+/* CARD */
+.card{
+  min-width:130px;
+  height:120px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#14532d,#052e16);
+  display:flex;
+  align-items:end;
+  justify-content:center;
+  padding:10px;
+  margin:5px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(0,255,100,0.3);
+}
+.card:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 20px rgba(0,255,100,0.6);
+}
+
+/* FOOTER */
+.footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  background:#14532d;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.box{
+  background:linear-gradient(180deg,#166534,#052e16);
+  padding:20px;
+  border-radius:15px;
+  width:90%;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+}
+
+.links{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+}
+
+.close{
+  text-align:center;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+/* CHAT */
+#chatBox{
+  height:150px;
+  overflow:auto;
+  background:#022c22;
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+  font-size:12px;
+}
+
+/* SLOT */
+#slot{display:none;text-align:center}
+.reel{font-size:40px}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen">
-<h2>Login</h2>
-<input id="loginUser"><br><br>
-<input id="loginPass" type="password"><br><br>
-<button onclick="login()">Entrar</button><br><br>
-<span onclick="abrirCadastro()">Criar conta</span> |
-<span onclick="abrirRecuperar()">Recuperar</span>
-</div>
-
-<div id="cadastroScreen" style="display:none">
-<input id="cadUser"><br><br>
-<input id="cadPass" type="password"><br><br>
-<button onclick="cadastrar()">Cadastrar</button>
-</div>
-
-<div id="recScreen" style="display:none">
-<input id="recUser"><br><br>
-<button onclick="recuperar()">Recuperar</button>
-</div>
-
-<!-- APP -->
-<div id="app" style="display:none">
-
 <header>
-<div>BetMaster</div>
-<div>R$ <span id="saldo">100</span></div>
+  <div>BetMaster</div>
+  <div class="balance">R$ <span id="saldo">100</span></div>
+  <div class="loginBtn" onclick="abrirLogin()">Login</div>
 </header>
 
-<div class="carousel">
-<div class="banner">🔥 Bônus</div>
-<div class="banner">💰 Ganhos</div>
+<div class="banner456">🎰 Bônus até R$5.555</div>
+
+<div class="jackpot">
+  JACKPOT R$ <span id="jackpot">10348114</span>
 </div>
 
-<div id="lobby">
+<div class="tabs">
+  <div class="tab activeTab">Popular</div>
+  <div class="tab">Recente</div>
+  <div class="tab">Favoritos</div>
+</div>
+
+<!-- HOME -->
+<div id="home" class="page active">
+
+<h3>🔥 Populares</h3>
 <div class="games">
-<div class="card" onclick="openSlot()">🐯</div>
-<div class="card" onclick="openSlot()">🎰</div>
-<div class="card" onclick="openSlot()">💎</div>
-</div>
-<div id="historico"></div>
+  <div class="card" onclick="openSlot()">🐯 Tigrinho</div>
+  <div class="card" onclick="openSlot()">🎰 Fortune</div>
 </div>
 
+<h3>🏆 Ranking</h3>
+<div id="ranking"></div>
+
+<h3>💬 Chat</h3>
+<div id="chatBox"></div>
+
+</div>
+
+<!-- SLOT -->
 <div id="slot">
-<h2>Slot</h2>
+<h2>🎰 Slot</h2>
 <span class="reel" id="r1">🍒</span>
 <span class="reel" id="r2">🍋</span>
 <span class="reel" id="r3">🍉</span>
@@ -90,143 +230,131 @@ background:black;color:white;display:none;justify-content:center;align-items:cen
 <button onclick="voltar()">Voltar</button>
 </div>
 
+<!-- LOGIN -->
+<div id="loginModal" class="modal">
+  <div class="box">
+    <h2>Login</h2>
+    <input id="userInput" placeholder="Usuário">
+    <input id="passInput" placeholder="Senha" type="password">
+    <button onclick="login()">Entrar</button>
+    <div class="links">
+      <span onclick="abrirRegistro()">Criar conta</span>
+      <span onclick="alert('Senha salva no navegador')">Esqueci</span>
+    </div>
+    <div class="close" onclick="fecharLogin()">Fechar</div>
+  </div>
+</div>
+
+<!-- REGISTRO -->
+<div id="registerModal" class="modal">
+  <div class="box">
+    <h2>Registro</h2>
+    <input id="newUser" placeholder="Usuário">
+    <input id="newPass" placeholder="Senha" type="password">
+    <button onclick="registrar()">Criar</button>
+    <div class="close" onclick="fecharRegistro()">Voltar</div>
+  </div>
+</div>
+
 <div class="footer">
-<div onclick="home()">🏠</div>
-<div onclick="bonus()">🎁</div>
-<div onclick="abrirDeposito()">💳</div>
-<div onclick="abrirDash()">📊</div>
-<div onclick="abrirPerfil()">👤</div>
-<div onclick="abrirSaque()">💸</div>
+  <div onclick="home()">🏠</div>
+  <div onclick="bonus()">🎁</div>
+  <div onclick="abrirLogin()">👤</div>
 </div>
-
-</div>
-
-<!-- MODAIS -->
-<div id="modal">
-<h2>Saque</h2>
-<button onclick="fecharModal()">Fechar</button>
-</div>
-
-<div id="depositoTela">
-<h2>Depósito</h2>
-<input id="valorDep"><br><br>
-<button onclick="confirmarDeposito()">Confirmar</button>
-<button onclick="fecharDeposito()">Voltar</button>
-</div>
-
-<div id="dashboard">
-<h2>Financeiro</h2>
-<p id="entrada"></p>
-<p id="saida"></p>
-<button onclick="fecharDash()">Voltar</button>
-</div>
-
-<div id="notif"></div>
-
-<div id="chatBox"><b>Chat</b><div id="chat"></div></div>
-<div id="rankBox"><b>Ranking</b><div id="rank"></div></div>
 
 <script>
-let saldo=+localStorage.getItem("saldo")||100;
-let entrada=0,saida=0;
-
-document.getElementById("saldo").innerText=saldo;
-
-if(localStorage.getItem("userLogado")){
- loginScreen.style.display="none";app.style.display="block";
-}
+let saldo = localStorage.getItem("saldo") || 100;
+document.getElementById("saldo").innerText = saldo;
 
 /* LOGIN */
+function abrirLogin(){loginModal.style.display="flex"}
+function fecharLogin(){loginModal.style.display="none"}
+
+function abrirRegistro(){
+  loginModal.style.display="none";
+  registerModal.style.display="flex";
+}
+function fecharRegistro(){registerModal.style.display="none"}
+
+function registrar(){
+  localStorage.setItem("user",newUser.value);
+  localStorage.setItem("pass",newPass.value);
+  alert("Conta criada!");
+  fecharRegistro();
+}
+
 function login(){
- if(localStorage.getItem("user_"+loginUser.value)==loginPass.value){
-  localStorage.setItem("userLogado",loginUser.value);
-  location.reload();
- }
-}
-function cadastrar(){localStorage.setItem("user_"+cadUser.value,cadPass.value);}
-function recuperar(){alert(localStorage.getItem("user_"+recUser.value));}
-
-/* NAV */
-function openSlot(){lobby.style.display="none";slot.style.display="block";}
-function voltar(){slot.style.display="none";lobby.style.display="block";}
-function home(){slot.style.display="none";lobby.style.display="block";}
-
-/* SLOT */
-function spin(){
- if(saldo<10)return;
- saldo-=10;
-
- let s=["🍒","🍋","🍉","💎","7️⃣"];
-
- let i=setInterval(()=>{
-  r1.innerText=s[Math.random()*5|0];
-  r2.innerText=s[Math.random()*5|0];
-  r3.innerText=s[Math.random()*5|0];
- },100);
-
- setTimeout(()=>{
-  clearInterval(i);
-
-  let win=(r1.innerText==r2.innerText&&r2.innerText==r3.innerText);
-
-  if(Math.random()<0.4){
-    r1.innerText="7️⃣";r2.innerText="7️⃣";r3.innerText="🍋";
+  if(userInput.value==localStorage.getItem("user") &&
+     passInput.value==localStorage.getItem("pass")){
+    alert("Logado!");
+    fecharLogin();
+  }else{
+    alert("Erro");
   }
-
-  if(win){saldo+=100;status.innerText="GANHOU";}
-  else{status.innerText="PERDEU";}
-
-  atualizar();
- },1200);
-}
-
-/* FINANCEIRO */
-function abrirDeposito(){depositoTela.style.display="flex";}
-function fecharDeposito(){depositoTela.style.display="none";}
-function confirmarDeposito(){
- let v=+valorDep.value||0;
- saldo+=v;entrada+=v;
- atualizar();fecharDeposito();
-}
-
-function abrirDash(){dashboard.style.display="flex";entrada.innerText="Entrada: "+entrada;saida.innerText="Saída: "+saida;}
-function fecharDash(){dashboard.style.display="none";}
-
-function abrirSaque(){
- let v=prompt("Valor");
- if(v>saldo)return;
- saldo-=v;saida+=+v;atualizar();
 }
 
 /* BONUS */
-function bonus(){saldo+=20;atualizar();}
+function bonus(){
+  saldo+=20;
+  atualizar();
+}
 
-/* UTIL */
+/* SLOT */
+function openSlot(){
+  document.getElementById("home").style.display="none";
+  slot.style.display="block";
+}
+function voltar(){
+  slot.style.display="none";
+  home();
+}
+function home(){
+  document.getElementById("home").style.display="block";
+}
+
+/* ATUALIZAR */
 function atualizar(){
- saldoEl=document.getElementById("saldo");
- saldoEl.innerText=saldo;
- localStorage.setItem("saldo",saldo);
+  document.getElementById("saldo").innerText = saldo;
+  localStorage.setItem("saldo",saldo);
+}
+
+/* SPIN */
+function spin(){
+  if(saldo<10){status.innerText="Sem saldo";return;}
+  saldo-=10;
+  atualizar();
+
+  let s=["🍒","🍋","🍉","💎","7️⃣"];
+  r1.innerText=s[Math.random()*5|0];
+  r2.innerText=s[Math.random()*5|0];
+  r3.innerText=s[Math.random()*5|0];
+
+  if(r1.innerText===r2.innerText && r2.innerText===r3.innerText){
+    saldo+=100;
+    status.innerText="🔥 GANHOU!";
+    new Audio("https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3").play();
+  }else{
+    status.innerText="❌ Perdeu";
+  }
+  atualizar();
 }
 
 /* CHAT */
-let nomes=["Ana","João","Carlos"];
+let msgs=["João ganhou R$500","Maria perdeu","Carlos JACKPOT"];
 setInterval(()=>{
- chat.innerHTML+=nomes[Math.random()*3|0]+" ganhou R$"+(Math.random()*500|0)+"<br>";
-},3000);
+  chatBox.innerHTML+="<div>"+msgs[Math.random()*msgs.length|0]+"</div>";
+  chatBox.scrollTop=chatBox.scrollHeight;
+},2000);
 
-/* RANK */
+/* RANKING */
+ranking.innerHTML="1. PlayerX<br>2. PlayerY<br>3. PlayerZ";
+
+/* JACKPOT */
 setInterval(()=>{
- rank.innerHTML="";
- nomes.forEach(n=>rank.innerHTML+=n+" "+(Math.random()*1000|0)+"<br>");
-},4000);
-
-/* NOTIF */
-function notificar(msg){
- notif.innerText=msg;notif.style.display="block";
- setTimeout(()=>notif.style.display="none",2000);
-}
-
+  let j=document.getElementById("jackpot");
+  j.innerText=parseInt(j.innerText)+Math.floor(Math.random()*50);
+},1000);
 </script>
 
 </body>
-  </html>
+ </html>
