@@ -3,249 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BetMaster Ultimate</title>
+<title>BetMaster Ultimate PRO</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#071f16;
-  color:white;
-}
+body{margin:0;font-family:Arial;background:#071f16;color:white;}
+header{background:linear-gradient(90deg,#16a34a,#064e3b);padding:12px;display:flex;justify-content:space-between;}
+input{padding:10px;border-radius:8px;border:none;width:80%;}
+button{padding:10px;border:none;border-radius:8px;background:#22c55e;color:white;}
 
-/* HEADER */
-header{
-  background:linear-gradient(90deg,#16a34a,#064e3b);
-  padding:12px;
-  display:flex;
-  justify-content:space-between;
-}
+.carousel{display:flex;overflow:auto;padding:10px;}
+.banner{min-width:80%;height:120px;background:#14532d;border-radius:10px;display:flex;align-items:center;justify-content:center;}
 
-/* SALDO */
-.balance{
-  color:#facc15;
-}
+.games{display:flex;gap:10px;overflow:auto;padding:10px;}
+.card{min-width:120px;height:100px;background:#14532d;border-radius:10px;display:flex;align-items:end;justify-content:center;}
 
-/* CARROSSEL */
-.carousel{
-  display:flex;
-  overflow-x:auto;
-  gap:10px;
-  padding:10px;
-}
-.banner{
-  min-width:85%;
-  height:130px;
-  border-radius:12px;
-  background:linear-gradient(45deg,#22c55e,#14532d);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold;
-}
+#slot{display:none;text-align:center;}
+.reel{font-size:40px;}
 
-/* SEÇÕES */
-.section{
-  padding:10px;
-}
-.games{
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-}
+.footer{position:fixed;bottom:0;width:100%;display:flex;justify-content:space-around;background:#14532d;padding:10px;}
 
-/* CARD */
-.card{
-  min-width:130px;
-  height:120px;
-  border-radius:12px;
-  background:linear-gradient(180deg,#14532d,#052e16);
-  display:flex;
-  align-items:end;
-  justify-content:center;
-  padding:10px;
-  font-size:14px;
-}
+#chatBox,#rankBox{position:fixed;bottom:80px;width:160px;background:#052e16;padding:10px;font-size:11px;border-radius:10px;}
+#chatBox{right:10px;}
+#rankBox{left:10px;}
 
-/* SLOT */
-#slot{
-  display:none;
-  text-align:center;
-  padding:20px;
-}
-.reel{
-  font-size:45px;
-  margin:10px;
-}
+#notif{position:fixed;top:10px;right:10px;background:#16a34a;padding:10px;border-radius:10px;display:none;}
 
-/* BOTÃO */
-button{
-  padding:12px;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
-  color:white;
-  font-weight:bold;
-}
-
-/* STATUS */
-.status{
-  margin:10px;
-  font-weight:bold;
-}
-
-/* FOOTER */
-.footer{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:#14532d;
-  display:flex;
-  justify-content:space-around;
-  padding:10px;
+#modal,#depositoTela,#dashboard{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:black;color:white;display:none;justify-content:center;align-items:center;flex-direction:column;
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGIN -->
+<div id="loginScreen">
+<h2>Login</h2>
+<input id="loginUser"><br><br>
+<input id="loginPass" type="password"><br><br>
+<button onclick="login()">Entrar</button><br><br>
+<span onclick="abrirCadastro()">Criar conta</span> |
+<span onclick="abrirRecuperar()">Recuperar</span>
+</div>
+
+<div id="cadastroScreen" style="display:none">
+<input id="cadUser"><br><br>
+<input id="cadPass" type="password"><br><br>
+<button onclick="cadastrar()">Cadastrar</button>
+</div>
+
+<div id="recScreen" style="display:none">
+<input id="recUser"><br><br>
+<button onclick="recuperar()">Recuperar</button>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none">
+
 <header>
-  <div>BetMaster</div>
-  <div class="balance">R$ <span id="saldo">100</span></div>
+<div>BetMaster</div>
+<div>R$ <span id="saldo">100</span></div>
 </header>
 
-<!-- CARROSSEL -->
 <div class="carousel">
-  <div class="banner">🔥 Bônus Diário</div>
-  <div class="banner">💰 Ganhe até R$500</div>
-  <div class="banner">🎰 Slots Premium</div>
+<div class="banner">🔥 Bônus</div>
+<div class="banner">💰 Ganhos</div>
 </div>
 
 <div id="lobby">
-
-<div class="section">
-<h3>🔥 Populares</h3>
 <div class="games">
-  <div class="card" onclick="openSlot()">🐯 Tigrinho</div>
-  <div class="card">🎰 Fortune</div>
-  <div class="card">💎 Gems</div>
+<div class="card" onclick="openSlot()">🐯</div>
+<div class="card" onclick="openSlot()">🎰</div>
+<div class="card" onclick="openSlot()">💎</div>
 </div>
-</div>
-
-<div class="section">
-<h3>🎰 Slots</h3>
-<div class="games">
-  <div class="card">🍒 Classic</div>
-  <div class="card">💰 Gold</div>
-  <div class="card">🎲 Vegas</div>
-</div>
+<div id="historico"></div>
 </div>
 
-</div>
-
-<!-- SLOT -->
 <div id="slot">
-  <h2>🎰 Slot</h2>
-
-  <div>
-    <span class="reel" id="r1">🍒</span>
-    <span class="reel" id="r2">🍋</span>
-    <span class="reel" id="r3">🍉</span>
-  </div>
-
-  <div class="status" id="status"></div>
-
-  <button onclick="spin()">Girar R$10</button>
-  <br><br>
-  <button onclick="voltar()">Voltar</button>
+<h2>Slot</h2>
+<span class="reel" id="r1">🍒</span>
+<span class="reel" id="r2">🍋</span>
+<span class="reel" id="r3">🍉</span>
+<div id="status"></div>
+<button onclick="spin()">Girar</button>
+<button onclick="voltar()">Voltar</button>
 </div>
 
 <div class="footer">
-  <div onclick="home()">🏠</div>
-  <div onclick="bonus()">🎁</div>
-  <div onclick="deposito()">💰</div>
-  <div onclick="alert('VIP Nível 1')">👑</div>
+<div onclick="home()">🏠</div>
+<div onclick="bonus()">🎁</div>
+<div onclick="abrirDeposito()">💳</div>
+<div onclick="abrirDash()">📊</div>
+<div onclick="abrirPerfil()">👤</div>
+<div onclick="abrirSaque()">💸</div>
 </div>
 
+</div>
+
+<!-- MODAIS -->
+<div id="modal">
+<h2>Saque</h2>
+<button onclick="fecharModal()">Fechar</button>
+</div>
+
+<div id="depositoTela">
+<h2>Depósito</h2>
+<input id="valorDep"><br><br>
+<button onclick="confirmarDeposito()">Confirmar</button>
+<button onclick="fecharDeposito()">Voltar</button>
+</div>
+
+<div id="dashboard">
+<h2>Financeiro</h2>
+<p id="entrada"></p>
+<p id="saida"></p>
+<button onclick="fecharDash()">Voltar</button>
+</div>
+
+<div id="notif"></div>
+
+<div id="chatBox"><b>Chat</b><div id="chat"></div></div>
+<div id="rankBox"><b>Ranking</b><div id="rank"></div></div>
+
 <script>
-let saldo = localStorage.getItem("saldo") || 100;
-let historico = JSON.parse(localStorage.getItem("hist")) || [];
+let saldo=+localStorage.getItem("saldo")||100;
+let entrada=0,saida=0;
 
-document.getElementById("saldo").innerText = saldo;
+document.getElementById("saldo").innerText=saldo;
 
-function salvar(){
-  localStorage.setItem("saldo", saldo);
-  localStorage.setItem("hist", JSON.stringify(historico));
+if(localStorage.getItem("userLogado")){
+ loginScreen.style.display="none";app.style.display="block";
 }
 
-function atualizar(){
-  document.getElementById("saldo").innerText = saldo;
+/* LOGIN */
+function login(){
+ if(localStorage.getItem("user_"+loginUser.value)==loginPass.value){
+  localStorage.setItem("userLogado",loginUser.value);
+  location.reload();
+ }
 }
+function cadastrar(){localStorage.setItem("user_"+cadUser.value,cadPass.value);}
+function recuperar(){alert(localStorage.getItem("user_"+recUser.value));}
 
-/* NAVEGAÇÃO */
-function openSlot(){
-  lobby.style.display="none";
-  slot.style.display="block";
-}
-function voltar(){
-  slot.style.display="none";
-  lobby.style.display="block";
-}
-function home(){voltar();}
-
-/* DEPÓSITO */
-function deposito(){
-  saldo+=50;
-  salvar();
-  atualizar();
-  alert("Depósito +50");
-}
-
-/* BÔNUS */
-function bonus(){
-  saldo+=20;
-  salvar();
-  atualizar();
-  alert("Bônus diário +20");
-}
+/* NAV */
+function openSlot(){lobby.style.display="none";slot.style.display="block";}
+function voltar(){slot.style.display="none";lobby.style.display="block";}
+function home(){slot.style.display="none";lobby.style.display="block";}
 
 /* SLOT */
 function spin(){
-  if(saldo<10){
-    status.innerText="Sem saldo";
-    return;
+ if(saldo<10)return;
+ saldo-=10;
+
+ let s=["🍒","🍋","🍉","💎","7️⃣"];
+
+ let i=setInterval(()=>{
+  r1.innerText=s[Math.random()*5|0];
+  r2.innerText=s[Math.random()*5|0];
+  r3.innerText=s[Math.random()*5|0];
+ },100);
+
+ setTimeout(()=>{
+  clearInterval(i);
+
+  let win=(r1.innerText==r2.innerText&&r2.innerText==r3.innerText);
+
+  if(Math.random()<0.4){
+    r1.innerText="7️⃣";r2.innerText="7️⃣";r3.innerText="🍋";
   }
 
-  saldo-=10;
+  if(win){saldo+=100;status.innerText="GANHOU";}
+  else{status.innerText="PERDEU";}
 
-  let s=["🍒","🍋","🍉","💎","7️⃣"];
-
-  let interval=setInterval(()=>{
-    r1.innerText=s[Math.floor(Math.random()*5)];
-    r2.innerText=s[Math.floor(Math.random()*5)];
-    r3.innerText=s[Math.floor(Math.random()*5)];
-  },100);
-
-  setTimeout(()=>{
-    clearInterval(interval);
-
-    let win = (r1.innerText===r2.innerText && r2.innerText===r3.innerText);
-
-    if(win){
-      saldo+=100;
-      status.innerText="🔥 GANHOU R$100!";
-      historico.push("Ganhou");
-    }else{
-      status.innerText="❌ Perdeu";
-      historico.push("Perdeu");
-    }
-
-    salvar();
-    atualizar();
-
-  },1200);
+  atualizar();
+ },1200);
 }
+
+/* FINANCEIRO */
+function abrirDeposito(){depositoTela.style.display="flex";}
+function fecharDeposito(){depositoTela.style.display="none";}
+function confirmarDeposito(){
+ let v=+valorDep.value||0;
+ saldo+=v;entrada+=v;
+ atualizar();fecharDeposito();
+}
+
+function abrirDash(){dashboard.style.display="flex";entrada.innerText="Entrada: "+entrada;saida.innerText="Saída: "+saida;}
+function fecharDash(){dashboard.style.display="none";}
+
+function abrirSaque(){
+ let v=prompt("Valor");
+ if(v>saldo)return;
+ saldo-=v;saida+=+v;atualizar();
+}
+
+/* BONUS */
+function bonus(){saldo+=20;atualizar();}
+
+/* UTIL */
+function atualizar(){
+ saldoEl=document.getElementById("saldo");
+ saldoEl.innerText=saldo;
+ localStorage.setItem("saldo",saldo);
+}
+
+/* CHAT */
+let nomes=["Ana","João","Carlos"];
+setInterval(()=>{
+ chat.innerHTML+=nomes[Math.random()*3|0]+" ganhou R$"+(Math.random()*500|0)+"<br>";
+},3000);
+
+/* RANK */
+setInterval(()=>{
+ rank.innerHTML="";
+ nomes.forEach(n=>rank.innerHTML+=n+" "+(Math.random()*1000|0)+"<br>");
+},4000);
+
+/* NOTIF */
+function notificar(msg){
+ notif.innerText=msg;notif.style.display="block";
+ setTimeout(()=>notif.style.display="none",2000);
+}
+
 </script>
 
 </body>
-</html>
+  </html>
