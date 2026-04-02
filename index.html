@@ -8,26 +8,6 @@
 * {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
 body {background:#0a2a1a; color:white; position:relative;}
 
-/* IMAGENS LATERAIS DENTRO DO SITE */
-.personagem-esquerdo {
-    position: absolute;
-    left: 10px;
-    top: 300px;
-    width: 80px;
-    z-index: 2;
-    background: transparent !important;
-    border: none !important;
-}
-.personagem-direito {
-    position: absolute;
-    right: 10px;
-    top: 300px;
-    width: 80px;
-    z-index: 2;
-    background: transparent !important;
-    border: none !important;
-}
-
 /* TOPO */
 header {
   background:linear-gradient(90deg, #006400, #008000);
@@ -39,7 +19,7 @@ header {
   z-index: 10;
 }
 .logo {font-size:28px; font-weight:bold; color:#ffd700;}
-.balance {font-size:20px; color:#ffd700; display:none;} /* ESCONDIDO INICIALMENTE */
+.balance {font-size:20px; color:#ffd700; display:none;}
 .header-buttons {
   display:flex;
   flex-direction:column;
@@ -83,7 +63,7 @@ header {
   cursor:pointer;
 }
 
-/* MENU DE CIMA */
+/* MENU DE OPÇÕES */
 .menu-top {
   display:flex;
   justify-content:space-around;
@@ -113,7 +93,7 @@ header {
 /* AREA CONTEUDO */
 .container {display:flex; position: relative;}
 
-/* MENU LATERAL ESQUERDO */
+/* MENU LATERAL */
 .sidebar {
   width:80px;
   background:#006400;
@@ -186,7 +166,7 @@ footer {
   font-size:12px;
 }
 
-/* MODAL */
+/* MODAIS */
 .modal {
   display:none;
   position:fixed;
@@ -202,7 +182,7 @@ footer {
   max-width:400px;
   border-radius:15px;
 }
-input {
+input, select {
   width:100%;
   padding:15px;
   margin:8px 0;
@@ -241,10 +221,6 @@ button {
 </head>
 <body>
 
-<!-- IMAGENS LATERAIS DENTRO DO SITE -->
-<img src="https://i.imgur.com/5kKZJqL.png" class="personagem-esquerdo" alt="Coelho">
-<img src="https://i.imgur.com/9ZfXkLd.png" class="personagem-direito" alt="Tigre">
-
 <!-- TOPO -->
 <header>
   <div class="logo">BetMaster</div>
@@ -268,14 +244,14 @@ button {
   <div onclick="alert('Página de Promoções')">
     <div>🎁</div> Promoção
   </div>
-  <div onclick="alert('Página de Depósito')">
-    <div>💰</div> Fundo
+  <div onclick="abrirModal('deposito')">
+    <div>💰</div> Depósito
+  </div>
+  <div onclick="abrirModal('saque')">
+    <div>💵</div> Saque
   </div>
   <div onclick="alert('Suporte ao Cliente')">
     <div>🎧</div> Suporte
-  </div>
-  <div onclick="alert('Mais Opções')">
-    <div>📋</div> Mais
   </div>
 </div>
 
@@ -373,7 +349,7 @@ button {
   </div>
 </footer>
 
-<!-- MODAL LOGIN / REGISTRO -->
+<!-- MODAL LOGIN -->
 <div id="modalLogin" class="modal">
   <div class="modal-box">
     <h2>🔐 ENTRAR NA CONTA</h2>
@@ -385,6 +361,7 @@ button {
   </div>
 </div>
 
+<!-- MODAL REGISTRO -->
 <div id="modalRegistro" class="modal">
   <div class="modal-box">
     <h2>📝 CRIAR NOVA CONTA</h2>
@@ -392,6 +369,34 @@ button {
     <input type="password" id="regPass" placeholder="Senha">
     <input type="text" id="regIndicado" placeholder="Quem te convidou? (Opcional)">
     <button onclick="registrar()">CADASTRAR</button>
+    <button onclick="fecharModal()" style="background:red;">FECHAR</button>
+  </div>
+</div>
+
+<!-- MODAL DEPÓSITO -->
+<div id="modalDeposito" class="modal">
+  <div class="modal-box">
+    <h2>💰 FAZER DEPÓSITO</h2>
+    <input type="number" id="valorDeposito" placeholder="Valor R$">
+    <p>Escolha a forma de pagamento:</p>
+    <select style="width:100%; padding:10px; margin:10px 0;">
+      <option>Pix</option>
+      <option>Cartão de Crédito</option>
+      <option>Boleto</option>
+    </select>
+    <button onclick="depositar()">CONFIRMAR DEPÓSITO</button>
+    <button onclick="fecharModal()" style="background:red;">FECHAR</button>
+  </div>
+</div>
+
+<!-- MODAL SAQUE -->
+<div id="modalSaque" class="modal">
+  <div class="modal-box">
+    <h2>💵 SOLICITAR SAQUE</h2>
+    <input type="number" id="valorSaque" placeholder="Valor R$">
+    <p>Chave Pix:</p>
+    <input type="text" id="chavePix" placeholder="Sua chave Pix">
+    <button onclick="sacar()">CONFIRMAR SAQUE</button>
     <button onclick="fecharModal()" style="background:red;">FECHAR</button>
   </div>
 </div>
@@ -421,20 +426,6 @@ function abrirModal(tipo) {
   document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
   if(tipo == 'login') document.getElementById('modalLogin').style.display = 'block';
   if(tipo == 'registro') document.getElementById('modalRegistro').style.display = 'block';
-}
-
-function fecharModal() {
-  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-}
-
-function login() {
-  let user = document.getElementById('loginUser').value;
-  let pass = document.getElementById('loginPass').value;
-  
-  let conta = usuarios.find(u => u.usuario == user && u.senha == pass);
-  
-  if(conta) {
-    usuarioLogado = conta;
-    localStorage.setItem('logado', JSON.stringify(usuarioLogado));
-    atualizar
-      
+  if(tipo == 'deposito') document.getElementById('modalDeposito').style.display = 'block';
+  if(tipo == 'sa
+    
