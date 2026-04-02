@@ -3,403 +3,439 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BetMaster APP - Jogos Originais</title>
-
+<title>BetMaster - Plataforma Oficial</title>
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#061a13;
-  color:white;
-  overflow-x: hidden;
-}
+* {margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+body {background:#0a2a1a; color:white; position: relative;}
 
-/* IMAGENS */
-.lado-esquerdo {
-    position: fixed;
+/* IMAGENS LATERAIS DENTRO DO SITE */
+.personagem-esquerdo {
+    position: absolute;
     left: 0px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 250px;
     width: 90px;
-    z-index: 10;
-    opacity: 1;
+    z-index: 1;
     background: transparent !important;
     border: none !important;
-    box-shadow: none !important;
 }
-.lado-direito {
-    position: fixed;
+.personagem-direito {
+    position: absolute;
     right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 250px;
     width: 90px;
-    z-index: 10;
-    opacity: 1;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-.logo-centro {
-    display: block;
-    width: 180px;
-    margin: 5px auto;
+    z-index: 1;
     background: transparent !important;
     border: none !important;
 }
 
-/* HEADER */
-header{
-  background:linear-gradient(90deg,#16a34a,#064e3b);
-  padding:12px;
+/* TOPO */
+header {
+  background:linear-gradient(90deg, #006400, #008000);
+  padding:10px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position: relative;
+  z-index: 10;
+}
+.logo {font-size:28px; font-weight:bold; color:#ffd700;}
+.balance {font-size:20px; color:#ffd700;}
+.header-buttons button {
+  background:#ffd700;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
+  font-weight:bold;
+  margin-left:5px;
+  cursor:pointer;
+}
+
+/* BANNER PROMOÇÃO */
+.banner-top {
+  background:#228B22;
+  color:white;
+  text-align:center;
+  padding:8px;
+  font-weight:bold;
+}
+.banner-app {
+  background:#006400;
+  color:white;
+  text-align:center;
+  padding:10px;
+  margin:5px;
+  border-radius:10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
-.loginBtn{
-  background:#facc15;
-  color:black;
-  padding:6px 12px;
-  border-radius:8px;
+.banner-app button {
+  background:#ffd700;
+  border:none;
+  padding:8px 15px;
+  border-radius:5px;
   font-weight:bold;
   cursor:pointer;
 }
-.balance{color:#facc15; font-size:18px; font-weight:bold;}
 
-.banner456{
-  background:linear-gradient(90deg,#16a34a,#22c55e);
-  padding:12px;
-  text-align:center;
-  font-weight:bold;
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{opacity:1} 50%{opacity:0.7} 100%{opacity:1}
-}
-
-.jackpot{
-  text-align:center;
-  font-size:22px;
-  color:#facc15;
-  font-weight:bold;
-  margin:10px;
-  animation:zoom 1.5s infinite alternate;
-}
-@keyframes zoom{
-  from{transform:scale(1)} to{transform:scale(1.1)}
-}
-
-.tabs{
+/* MENU DE CIMA */
+.menu-top {
   display:flex;
   justify-content:space-around;
+  background:#006400;
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+}
+.menu-top div {
+  text-align:center;
+  cursor:pointer;
+  font-size:12px;
+}
+
+/* JACKPOT */
+.jackpot {
+  background:linear-gradient(45deg, #B8860B, #FFD700);
+  color:black;
+  text-align:center;
+  padding:15px;
+  margin:10px;
+  border-radius:15px;
+  font-size:22px;
+  font-weight:bold;
+}
+
+/* AREA CONTEUDO */
+.container {display:flex; position: relative;}
+
+/* MENU LATERAL ESQUERDO */
+.sidebar {
+  width:80px;
+  background:#006400;
+  padding:10px;
+  border-radius:10px;
   margin:10px;
 }
-.tab{
-  padding:10px;
-  background:#14532d;
-  border-radius:10px;
+.sidebar-item {
+  text-align:center;
+  padding:15px 0;
+  border-bottom:1px solid #228B22;
   cursor:pointer;
+  font-size:12px;
 }
-.activeTab{background:#22c55e}
-
-.page{display:none;padding-bottom:60px}
-.active{display:block}
 
 /* AREA DOS JOGOS */
-.games-container{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:15px;
-  padding:15px;
+.games-area {
+  flex:1;
+  padding:10px;
 }
-.game-card{
+.tabs {
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+.tab {
+  background:#228B22;
+  padding:10px 20px;
+  border-radius:20px;
+  cursor:pointer;
+}
+.tab.active {background:#ffd700; color:black; font-weight:bold;}
+
+.games-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:10px;
+}
+.game-card {
   background:#1a1a1a;
-  border-radius:15px;
+  border-radius:10px;
   overflow:hidden;
   cursor:pointer;
   border:2px solid transparent;
-  transition:0.3s;
 }
-.game-card:hover{
-  border-color:#facc15;
-  transform:scale(1.05);
-}
-.game-card img{
-  width:100%;
-  height:120px;
-  object-fit:cover;
-}
-.game-card h4{
-  margin:10px;
-  text-align:center;
-}
+.game-card:hover {border-color:#ffd700;}
+.game-card img {width:100%; height:100px; object-fit:cover;}
+.game-card p {text-align:center; padding:5px; font-size:12px;}
 
-/* ONDE O JOGO VAI RODAR */
-#area-jogo{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:#000;
-  z-index:9999;
-  display:none;
-}
-#frame-jogo{
-  width:100%;
-  height:100%;
-  border:none;
-}
-.btn-fechar-jogo{
-  position:fixed;
-  top:10px;
-  right:10px;
-  z-index:10000;
-  background:red;
-  color:white;
-  border:none;
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  font-size:20px;
-  font-weight:bold;
-}
-
-.footer{
+/* RODAPE FIXO */
+footer {
   position:fixed;
   bottom:0;
+  left:0;
   width:100%;
-  background:#14532d;
+  background:#006400;
   display:flex;
   justify-content:space-around;
-  padding:10px;
-  z-index:50;
+  padding:10px 0;
+  z-index:100;
 }
-.footer div{cursor:pointer; font-size:22px;}
+.footer-item {
+  text-align:center;
+  cursor:pointer;
+  font-size:12px;
+}
 
 /* MODAL */
-.modal{
+.modal {
   display:none;
   position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.85);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+  top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.9);
+  z-index:200;
 }
-.box{
-  background:linear-gradient(180deg,#166534,#052e16);
+.modal-box {
+  background:#006400;
+  margin:50px auto;
   padding:20px;
-  border-radius:15px;
   width:90%;
+  max-width:400px;
+  border-radius:15px;
 }
-input{
+input {
   width:100%;
-  padding:12px;
+  padding:15px;
   margin:8px 0;
   border-radius:8px;
   border:none;
-  color:black;
-}
-button{
-  padding:12px;
-  width:100%;
-  border:none;
-  border-radius:10px;
-  background:#22c55e;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
   font-size:16px;
 }
-.links{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  margin:10px 0;
-}
-.close{
-  text-align:center;
-  margin-top:10px;
+button {
+  width:100%;
+  padding:15px;
+  background:#ffd700;
+  border:none;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
   cursor:pointer;
+  margin-top:10px;
 }
 
-/* FINANCEIRO E INDICAÇÃO */
-.btn-pix{background:#0052cc !important; margin:5px 0;}
-.area-financeiro{background:rgba(255,255,255,0.1); padding:15px; border-radius:10px; margin:10px;}
-.area-indicacao{background: linear-gradient(45deg, #0052cc, #16a34a); padding: 15px; border-radius: 15px; margin: 10px; text-align:center;}
-.link-indicacao{background:rgba(0,0,0,0.4); padding:10px; border-radius:8px; word-break: break-all; margin:10px 0; font-family:monospace;}
+/* AREA JOGO */
+#area-jogo {
+  position:fixed;
+  top:0; left:0; width:100%; height:100%;
+  background:#000;
+  z-index:300;
+  display:none;
+}
+#frame-jogo {width:100%; height:100%; border:none;}
+.btn-fechar {
+  position:fixed; top:10px; right:10px;
+  background:red; color:white; border:none;
+  width:40px; height:40px; border-radius:50%;
+  font-size:20px; z-index:301;
+}
 </style>
 </head>
-
 <body>
 
-<img src="images (7).jpeg" class="lado-esquerdo" alt="Logo">
-<img src="images (5).jpeg" class="lado-direito" alt="Coelho">
+<!-- IMAGENS LATERAIS DENTRO DO SITE -->
+<img src="https://i.imgur.com/5kKZJqL.png" class="personagem-esquerdo" alt="Coelho">
+<img src="https://i.imgur.com/9ZfXkLd.png" class="personagem-direito" alt="Tigre">
 
+<!-- TOPO -->
 <header>
-  <div>BetMaster</div>
+  <div class="logo">BetMaster</div>
   <div class="balance">R$ <span id="saldo">0,00</span></div>
-  <div class="loginBtn" id="btnLogin" onclick="abrirLogin()">Login</div>
+  <div class="header-buttons">
+    <button onclick="abrirModal('login')">Login</button>
+    <button onclick="abrirModal('registro')">Registro</button>
+  </div>
 </header>
 
-<img src="images (6).jpeg" class="logo-centro" alt="Tigre">
+<!-- BANNER SUPERIOR -->
+<div class="banner-top">🎁 BÔNUS DE PRIMEIRO DEPÓSITO ATÉ R$5555!</div>
 
-<div class="banner456">🎰 Bônus até R$5.555</div>
+<div class="banner-app">
+  <span>📲 Coleção gratuita R$ 7,00</span>
+  <button onclick="alert('Link para baixar o App!')">BAIXAR AGORA</button>
+</div>
 
+<!-- MENU DE OPÇÕES -->
+<div class="menu-top">
+  <div onclick="alert('Página de Promoções')">
+    <div>🎁</div> Promoção
+  </div>
+  <div onclick="alert('Página de Depósito')">
+    <div>💰</div> Fundo
+  </div>
+  <div onclick="alert('Suporte ao Cliente')">
+    <div>🎧</div> Suporte
+  </div>
+  <div onclick="alert('Mais Opções')">
+    <div>📋</div> Mais
+  </div>
+</div>
+
+<!-- JACKPOT -->
 <div class="jackpot">
-  JACKPOT R$ <span id="jackpot">10348114</span>
+  JACKPOT 🎰 R$ 10.348.114,69
 </div>
 
-<div class="tabs">
-  <div class="tab activeTab" onclick="mostrarPagina('home')">Jogos</div>
-  <div class="tab" onclick="mostrarPagina('deposito')">Depósito</div>
-  <div class="tab" onclick="mostrarPagina('saque')">Saque</div>
-  <div class="tab" onclick="mostrarPagina('indicacao')">Indicar</div>
+<!-- CONTEUDO PRINCIPAL -->
+<div class="container">
+
+  <!-- MENU LATERAL -->
+  <div class="sidebar">
+    <div class="sidebar-item">
+      <div>🔥</div> Popular
+    </div>
+    <div class="sidebar-item">
+      <div>🎰</div> Slots
+    </div>
+    <div class="sidebar-item">
+      <div>🔗</div> Blockchain
+    </div>
+    <div class="sidebar-item">
+      <div>🐟</div> Pescaria
+    </div>
+    <div class="sidebar-item">
+      <div>🃏</div> Cartas
+    </div>
+    <div class="sidebar-item">
+      <div>📹</div> Ao Vivo
+    </div>
+  </div>
+
+  <!-- AREA DOS JOGOS -->
+  <div class="games-area">
+    <div class="tabs">
+      <div class="tab active">Popular</div>
+      <div class="tab">Recente</div>
+      <div class="tab">Favoritos</div>
+    </div>
+
+    <div class="games-grid">
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneTiger/index.html?lang=pt')">
+        <img src="https://i.imgur.com/9ZfXkLd.jpg" alt="Tigre">
+        <p>🐯 FORTUNE TIGER</p>
+      </div>
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneRabbit/index.html?lang=pt')">
+        <img src="https://i.imgur.com/5kKZJqL.jpg" alt="Coelho">
+        <p>🐰 FORTUNE RABBIT</p>
+      </div>
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneOx/index.html?lang=pt')">
+        <img src="https://i.imgur.com/8xTt9aX.jpg" alt="Touro">
+        <p>🐂 FORTUNE OX</p>
+      </div>
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneDragon/index.html?lang=pt')">
+        <img src="https://i.imgur.com/7sN2YQH.jpg" alt="Dragão">
+        <p>🐉 FORTUNE DRAGON</p>
+      </div>
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneStar/index.html?lang=pt')">
+        <img src="https://i.imgur.com/XYZ123.jpg" alt="Estrela">
+        <p>⭐ FORTUNE STAR</p>
+      </div>
+
+      <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneSnake/index.html?lang=pt')">
+        <img src="https://i.imgur.com/ABC456.jpg" alt="Cobrinha">
+        <p>🐍 FORTUNE SNAKE</p>
+      </div>
+
+    </div>
+  </div>
+
 </div>
 
-<!-- HOME COM OS JOGOS -->
-<div id="home" class="page active">
-  <h3 style="margin:15px;">🔥 JOGOS ORIGINAIS PG SOFT</h3>
-  <div class="games-container">
+<!-- RODAPE FIXO -->
+<footer>
+  <div class="footer-item" onclick="mostrarPagina('home')">
+    <div>🏠</div> Começar
+  </div>
+  <div class="footer-item" onclick="alert('Ofertas e Bônus')">
+    <div>🎁</div> Ofertas
+  </div>
+  <div class="footer-item" onclick="abrirModal('login')">
+    <div>🔐</div> Login
+  </div>
+  <div class="footer-item" onclick="abrirModal('registro')">
+    <div>📝</div> Registro
+  </div>
+  <div class="footer-item" onclick="alert('Seu Perfil')">
+    <div>👤</div> Perfil
+  </div>
+</footer>
 
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneTiger/index.html?lang=pt')">
-      <img src="https://i.imgur.com/9ZfXkLd.jpg" alt="Tigre">
-      <h4>🐯 FORTUNE TIGER</h4>
-    </div>
-
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneRabbit/index.html?lang=pt')">
-      <img src="https://i.imgur.com/5kKZJqL.jpg" alt="Coelho">
-      <h4>🐰 FORTUNE RABBIT</h4>
-    </div>
-
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneOx/index.html?lang=pt')">
-      <img src="https://i.imgur.com/8xTt9aX.jpg" alt="Touro">
-      <h4>🐂 FORTUNE OX</h4>
-    </div>
-
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneDragon/index.html?lang=pt')">
-      <img src="https://i.imgur.com/7sN2YQH.jpg" alt="Dragão">
-      <h4>🐉 FORTUNE DRAGON</h4>
-    </div>
-
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneStar/index.html?lang=pt')">
-      <img src="https://i.imgur.com/9ZfXkLd.jpg" alt="Estrela">
-      <h4>⭐ FORTUNE STAR</h4>
-    </div>
-
-    <div class="game-card" onclick="abrirJogo('https://demo.pgsoft-games.com/FortuneSnake/index.html?lang=pt')">
-      <img src="https://i.imgur.com/7sN2YQH.jpg" alt="Cobrinha">
-      <h4>🐍 FORTUNE SNAKE</h4>
-    </div>
-
+<!-- MODAL LOGIN / REGISTRO -->
+<div id="modalLogin" class="modal">
+  <div class="modal-box">
+    <h2>🔐 ENTRAR NA CONTA</h2>
+    <input type="text" id="loginUser" placeholder="Usuário">
+    <input type="password" id="loginPass" placeholder="Senha">
+    <button onclick="login()">ENTRAR</button>
+    <p style="text-align:center; margin-top:15px;">Não tem conta? <a href="#" onclick="abrirModal('registro')" style="color:#ffd700">Cadastre-se</a></p>
+    <button onclick="fecharModal()" style="background:red;">FECHAR</button>
   </div>
 </div>
 
-<!-- DEPOSITO -->
-<div id="deposito" class="page">
-  <div class="area-financeiro">
-    <h2 style="text-align:center; color:#facc15">💸 DEPÓSITO VIA PIX</h2>
-    <p style="text-align:center">Escaneie o QR Code ou copie a chave abaixo</p>
-    
-    <div class="qrcode-area" style="text-align:center; background:white; padding:15px; border-radius:10px;">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SUA_CHAVE_PIX_AQUI" width="180">
-    </div>
-    
-    <div class="chave-pix">
-      suachavepix@email.com
-    </div>
-    
-    <input type="number" id="valorDeposito" placeholder="Valor que você pagou R$" min="10">
-    <button class="btn-pix" onclick="confirmarPagamento()">✅ JÁ PAGUEI / CONFIRMAR</button>
+<div id="modalRegistro" class="modal">
+  <div class="modal-box">
+    <h2>📝 CRIAR NOVA CONTA</h2>
+    <input type="text" id="regUser" placeholder="Usuário">
+    <input type="password" id="regPass" placeholder="Senha">
+    <input type="text" id="regIndicado" placeholder="Quem te convidou? (Opcional)">
+    <button onclick="registrar()">CADASTRAR</button>
+    <button onclick="fecharModal()" style="background:red;">FECHAR</button>
   </div>
 </div>
 
-<!-- SAQUE COMPLETO COM SENHA, CPF E BANCO -->
-<div id="saque" class="page">
-  <div class="area-financeiro">
-    <h2 style="text-align:center; color:#facc15">💸 SOLICITAR SAQUE</h2>
-    
-    <input type="password" id="senhaSaque" placeholder="🔒 Digite sua SENHA">
-    <input type="text" id="cpfSaque" placeholder="🧾 Digite seu CPF" maxlength="14">
-    <input type="text" id="bancoSaque" placeholder="🏦 Nome do Banco (ex: Banco do Brasil)">
-    <input type="text" id="chavePix" placeholder="🔑 Digite sua Chave PIX">
-    <input type="number" id="valorSaque" placeholder="💰 Valor R$" min="20">
-    
-    <button class="btn-pix" onclick="solicitarSaque()">✅ SOLICITAR SAQUE</button>
-    <p style="text-align:center; font-size:12px; margin-top:10px; color:#ccc">*Todos os campos são obrigatórios</p>
-  </div>
-</div>
-
-<!-- INDICACAO -->
-<div id="indicacao" class="page">
-  <div class="area-indicacao">
-    <h2>🎁 CONVIDE E GANHE</h2>
-    <p>Ganhe <strong style="color:yellow">10% de COMISSÃO</strong> em cima dos depósitos!</p>
-    
-    <div class="link-indicacao" id="linkConvite">
-      carregando...
-    </div>
-    
-    <button onclick="copiarLink()">📋 COPIAR LINK</button>
-    <button onclick="compartilhar()" style="background:#ff4500; margin-top:5px;">📤 COMPARTILHAR</button>
-    
-    <div style="margin-top:15px; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px;">
-      <h4>📊 Seus Ganhos:</h4>
-      <p style="font-size:22px; font-weight:bold; color:#facc15">R$ <span id="totalComissao">0,00</span></p>
-    </div>
-  </div>
-</div>
-
-<!-- AREA JOGO -->
+<!-- AREA DO JOGO -->
 <div id="area-jogo">
-  <button class="btn-fechar-jogo" onclick="fecharJogo()">X</button>
+  <button class="btn-fechar" onclick="fecharJogo()">X</button>
   <iframe id="frame-jogo" src=""></iframe>
 </div>
 
-<!-- LOGIN -->
-<div id="loginModal" class="modal">
-  <div class="box">
-    <h2>Login</h2>
-    <input id="userInput" placeholder="Usuário">
-    <input id="passInput" placeholder="Senha" type="password">
-    <button onclick="login()">Entrar</button>
-    <div class="links">
-      <span onclick="abrirRegistro()">Criar conta</span>
-      <span>Esqueci</span>
-    </div>
-    <div class="close" onclick="fecharLogin()">Fechar</div>
-  </div>
-</div>
-
-<!-- REGISTRO -->
-<div id="registerModal" class="modal">
-  <div class="box">
-    <h2>Registro</h2>
-    <input id="newUser" placeholder="Usuário">
-    <input id="newPass" placeholder="Senha" type="password">
-    <input id="indicadoPor" placeholder="Quem te convidou? (Opcional)">
-    <button onclick="registrar()">Criar Conta</button>
-    <div class="close" onclick="fecharRegistro()">Voltar</div>
-  </div>
-</div>
-
-<div class="footer">
-  <div onclick="mostrarPagina('home')">🏠</div>
-  <div onclick="mostrarPagina('deposito')">💸</div>
-  <div onclick="mostrarPagina('indicacao')">🎁</div>
-  <div onclick="abrirLogin()">👤</div>
-</div>
-
 <script>
-// DADOS
-let usuariosCadastrados = JSON.parse(localStorage.getItem('usuarios')) || [];
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 let usuarioLogado = JSON.parse(localStorage.getItem('logado')) || null;
 
-atualizarTela();
-verificarIndicacao();
+function atualizarSaldo() {
+  let saldo = usuarioLogado ? usuarioLogado.saldo : 0;
+  document.getElementById('saldo').innerText = saldo.toFixed(2).replace('.', ',');
+}
+atualizarSaldo();
 
-function mostrarPagina(id){
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.page').forEach(p => p.style.display
-      
+function abrirModal(tipo) {
+  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+  if(tipo == 'login') document.getElementById('modalLogin').style.display = 'block';
+  if(tipo == 'registro') document.getElementById('modalRegistro').style.display = 'block';
+}
+
+function fecharModal() {
+  document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+}
+
+function login() {
+  let user = document.getElementById('loginUser').value;
+  let pass = document.getElementById('loginPass').value;
+  
+  let conta = usuarios.find(u => u.usuario == user && u.senha == pass);
+  
+  if(conta) {
+    usuarioLogado = conta;
+    localStorage.setItem('logado', JSON.stringify(usuarioLogado));
+    atualizarSaldo();
+    fecharModal();
+    alert(`✅ Bem-vindo, ${user}!`);
+  } else {
+    alert('❌ Usuário ou senha incorretos!');
+  }
+}
+
+function registrar() {
+  let user = document.getElementById('regUser').value;
+  let pass = document.getElementById('regPass').value;
+  
+  if(!user || !pass) {alert('Preencha tudo!'); return;}
+  
+  let novo = {usuario: user, senha: pass, saldo: 0, comissao: 0};
+  usuarios.push(novo);
+  localStorage.setItem
+        
