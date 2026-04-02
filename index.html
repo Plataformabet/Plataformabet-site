@@ -2,300 +2,250 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>BET MASTER</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetMaster Ultimate</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:#020617;
+  background:#071f16;
   color:white;
 }
 
-/* TOPO */
-.topo{
-  background:#020617;
-  padding:15px;
+/* HEADER */
+header{
+  background:linear-gradient(90deg,#16a34a,#064e3b);
+  padding:12px;
   display:flex;
   justify-content:space-between;
-  border-bottom:2px solid #22c55e;
 }
 
-.logo{
-  color:#22c55e;
+/* SALDO */
+.balance{
+  color:#facc15;
+}
+
+/* CARROSSEL */
+.carousel{
+  display:flex;
+  overflow-x:auto;
+  gap:10px;
+  padding:10px;
+}
+.banner{
+  min-width:85%;
+  height:130px;
+  border-radius:12px;
+  background:linear-gradient(45deg,#22c55e,#14532d);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-weight:bold;
 }
 
-/* TELAS */
-.tela{ display:none; text-align:center; margin-top:40px; }
-
-input{
-  padding:12px;
-  margin:10px;
-  width:250px;
-  border:none;
-  border-radius:8px;
-  background:#1e293b;
-  color:white;
+/* SEÇÕES */
+.section{
+  padding:10px;
+}
+.games{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
 }
 
-button{
-  padding:10px 20px;
-  border:none;
-  border-radius:8px;
-  background:#22c55e;
-  color:white;
-  cursor:pointer;
-}
-
-/* DASHBOARD */
-.dashboard{ padding:20px; }
-
-.saldo{
-  border:1px solid #22c55e;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 15px #22c55e55;
-}
-
-/* GRID */
-.jogos{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  margin-top:20px;
-}
-
+/* CARD */
 .card{
-  border:1px solid #22c55e;
-  padding:20px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.card:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px #22c55e;
+  min-width:130px;
+  height:120px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#14532d,#052e16);
+  display:flex;
+  align-items:end;
+  justify-content:center;
+  padding:10px;
+  font-size:14px;
 }
 
 /* SLOT */
-.slot{ font-size:50px; margin:20px; }
-
-.spin{ animation:spin 0.1s infinite linear; }
-
-@keyframes spin{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
+#slot{
+  display:none;
+  text-align:center;
+  padding:20px;
+}
+.reel{
+  font-size:45px;
+  margin:10px;
 }
 
-/* ROLETA */
-.roleta{ font-size:60px; margin:20px; }
+/* BOTÃO */
+button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-weight:bold;
+}
 
-/* MOEDAS */
-.moeda{
+/* STATUS */
+.status{
+  margin:10px;
+  font-weight:bold;
+}
+
+/* FOOTER */
+.footer{
   position:fixed;
-  font-size:25px;
-  animation:queda 1s linear;
-}
-
-@keyframes queda{
-  0%{transform:translateY(-50px);}
-  100%{transform:translateY(300px); opacity:0;}
-}
-
-/* HISTÓRICO */
-.historico{
-  margin-top:20px;
-  font-size:12px;
-  text-align:left;
+  bottom:0;
+  width:100%;
+  background:#14532d;
+  display:flex;
+  justify-content:space-around;
+  padding:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="topo">
-  <div class="logo">🔥 BET MASTER</div>
+<header>
+  <div>BetMaster</div>
+  <div class="balance">R$ <span id="saldo">100</span></div>
+</header>
+
+<!-- CARROSSEL -->
+<div class="carousel">
+  <div class="banner">🔥 Bônus Diário</div>
+  <div class="banner">💰 Ganhe até R$500</div>
+  <div class="banner">🎰 Slots Premium</div>
 </div>
 
-<!-- LOGIN -->
-<div class="tela" id="login">
-  <h2>Login</h2>
-  <input id="user" placeholder="Usuário">
-  <input id="pass" type="password" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-  <p onclick="mostrar('cadastro')">Criar conta</p>
-  <p onclick="mostrar('recuperar')">Esqueci senha</p>
+<div id="lobby">
+
+<div class="section">
+<h3>🔥 Populares</h3>
+<div class="games">
+  <div class="card" onclick="openSlot()">🐯 Tigrinho</div>
+  <div class="card">🎰 Fortune</div>
+  <div class="card">💎 Gems</div>
+</div>
 </div>
 
-<!-- CADASTRO -->
-<div class="tela" id="cadastro">
-  <h2>Cadastro</h2>
-  <input id="newUser" placeholder="Usuário">
-  <input id="newPass" type="password" placeholder="Senha">
-  <button onclick="cadastrar()">Cadastrar</button>
+<div class="section">
+<h3>🎰 Slots</h3>
+<div class="games">
+  <div class="card">🍒 Classic</div>
+  <div class="card">💰 Gold</div>
+  <div class="card">🎲 Vegas</div>
 </div>
-
-<!-- RECUPERAR -->
-<div class="tela" id="recuperar">
-  <h2>Recuperar senha</h2>
-  <input placeholder="Digite seu usuário">
-  <button onclick="alert('Recuperação simulada')">Recuperar</button>
 </div>
-
-<!-- DASHBOARD -->
-<div class="tela dashboard" id="dashboard">
-
-<div class="saldo">
-💰 Saldo: R$ <span id="saldo">100</span><br><br>
-<button onclick="depositar()">+100</button>
-<button onclick="sacar()">-100</button>
-</div>
-
-<h3>🎮 Jogos</h3>
-
-<div class="jogos">
-<div class="card" onclick="mostrar('slot')">🎰 Slot</div>
-<div class="card" onclick="mostrar('roleta')">🎡 Roleta</div>
-</div>
-
-<div class="historico" id="historico"></div>
 
 </div>
 
 <!-- SLOT -->
-<div class="tela" id="slot">
-<h2>🎰 Slot</h2>
-<div id="slotIcon" class="slot">🍒</div>
-<button onclick="girarSlot()">GIRAR</button><br><br>
-<button onclick="mostrar('dashboard')">Voltar</button>
+<div id="slot">
+  <h2>🎰 Slot</h2>
+
+  <div>
+    <span class="reel" id="r1">🍒</span>
+    <span class="reel" id="r2">🍋</span>
+    <span class="reel" id="r3">🍉</span>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <button onclick="spin()">Girar R$10</button>
+  <br><br>
+  <button onclick="voltar()">Voltar</button>
 </div>
 
-<!-- ROLETA -->
-<div class="tela" id="roleta">
-<h2>🎡 Roleta</h2>
-<div id="roletaIcon" class="roleta">🔴</div>
-<button onclick="girarRoleta()">GIRAR</button><br><br>
-<button onclick="mostrar('dashboard')">Voltar</button>
+<div class="footer">
+  <div onclick="home()">🏠</div>
+  <div onclick="bonus()">🎁</div>
+  <div onclick="deposito()">💰</div>
+  <div onclick="alert('VIP Nível 1')">👑</div>
 </div>
-
-<audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-coin-2016.mp3"></audio>
-<audio id="spinSound" src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-spin-1934.mp3"></audio>
 
 <script>
+let saldo = localStorage.getItem("saldo") || 100;
+let historico = JSON.parse(localStorage.getItem("hist")) || [];
 
-let saldo = parseInt(localStorage.getItem("saldo")) || 100;
-let historico = [];
+document.getElementById("saldo").innerText = saldo;
 
-function mostrar(t){
-  document.querySelectorAll('.tela').forEach(x=>x.style.display='none');
-  document.getElementById(t).style.display='block';
+function salvar(){
+  localStorage.setItem("saldo", saldo);
+  localStorage.setItem("hist", JSON.stringify(historico));
 }
 
-mostrar('login');
-
-// CADASTRO
-function cadastrar(){
-  localStorage.setItem("user", newUser.value);
-  localStorage.setItem("pass", newPass.value);
-  alert("Conta criada");
-  mostrar('login');
-}
-
-// LOGIN
-function login(){
-  if(user.value === localStorage.getItem("user") &&
-     pass.value === localStorage.getItem("pass")){
-    atualizar();
-    mostrar('dashboard');
-  } else alert("Login inválido");
-}
-
-// ATUALIZAR
 function atualizar(){
   document.getElementById("saldo").innerText = saldo;
-  localStorage.setItem("saldo", saldo);
 }
 
-// SLOT
-function girarSlot(){
-  spinSound.play();
-  let el = document.getElementById("slotIcon");
-  el.classList.add("spin");
+/* NAVEGAÇÃO */
+function openSlot(){
+  lobby.style.display="none";
+  slot.style.display="block";
+}
+function voltar(){
+  slot.style.display="none";
+  lobby.style.display="block";
+}
+function home(){voltar();}
 
-  setTimeout(()=>{
-    el.classList.remove("spin");
-
-    if(Math.random()>0.7){
-      let ganho = Math.floor(Math.random()*150);
-      saldo += ganho;
-      el.innerText="💰";
-      winSound.play();
-      moedas();
-      addHist("Slot ganhou "+ganho);
-    }else{
-      let perda = Math.floor(Math.random()*80);
-      saldo -= perda;
-      el.innerText="💀";
-      addHist("Slot perdeu "+perda);
-    }
-
-    atualizar();
-  },1500);
+/* DEPÓSITO */
+function deposito(){
+  saldo+=50;
+  salvar();
+  atualizar();
+  alert("Depósito +50");
 }
 
-// ROLETA
-function girarRoleta(){
-  spinSound.play();
-  let el = document.getElementById("roletaIcon");
-  let cores = ["🔴","⚫","🟢"];
+/* BÔNUS */
+function bonus(){
+  saldo+=20;
+  salvar();
+  atualizar();
+  alert("Bônus diário +20");
+}
 
-  let i=0;
-  let interval = setInterval(()=>{
-    el.innerText = cores[i++%3];
+/* SLOT */
+function spin(){
+  if(saldo<10){
+    status.innerText="Sem saldo";
+    return;
+  }
+
+  saldo-=10;
+
+  let s=["🍒","🍋","🍉","💎","7️⃣"];
+
+  let interval=setInterval(()=>{
+    r1.innerText=s[Math.floor(Math.random()*5)];
+    r2.innerText=s[Math.floor(Math.random()*5)];
+    r3.innerText=s[Math.floor(Math.random()*5)];
   },100);
 
   setTimeout(()=>{
     clearInterval(interval);
 
-    if(Math.random()>0.6){
-      saldo += 200;
-      winSound.play();
-      moedas();
-      addHist("Roleta ganhou 200");
+    let win = (r1.innerText===r2.innerText && r2.innerText===r3.innerText);
+
+    if(win){
+      saldo+=100;
+      status.innerText="🔥 GANHOU R$100!";
+      historico.push("Ganhou");
     }else{
-      saldo -= 100;
-      addHist("Roleta perdeu 100");
+      status.innerText="❌ Perdeu";
+      historico.push("Perdeu");
     }
 
+    salvar();
     atualizar();
-  },2000);
+
+  },1200);
 }
-
-// MOEDAS
-function moedas(){
-  for(let i=0;i<10;i++){
-    let m = document.createElement("div");
-    m.innerText="💰";
-    m.className="moeda";
-    m.style.left=Math.random()*90+"%";
-    document.body.appendChild(m);
-    setTimeout(()=>m.remove(),1000);
-  }
-}
-
-// HISTÓRICO
-function addHist(t){
-  historico.push(t);
-  document.getElementById("historico").innerHTML = historico.join("<br>");
-}
-
-// DEP/SAC
-function depositar(){ saldo+=100; atualizar(); }
-function sacar(){ saldo-=100; atualizar(); }
-
 </script>
 
 </body>
-    </html>
+</html>
