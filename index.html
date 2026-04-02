@@ -2,40 +2,300 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Plataforma Bet</title>
+<title>BET MASTER</title>
 
 <style>
 body{
   margin:0;
   font-family:Arial;
-  background:#0f172a;
+  background:#020617;
   color:white;
-  text-align:center;
 }
 
-h1{
-  margin-top:50px;
-  font-size:40px;
+/* TOPO */
+.topo{
+  background:#020617;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  border-bottom:2px solid #22c55e;
 }
 
-.botao{
-  margin-top:30px;
-  padding:15px 30px;
-  background:#22c55e;
+.logo{
+  color:#22c55e;
+  font-weight:bold;
+}
+
+/* TELAS */
+.tela{ display:none; text-align:center; margin-top:40px; }
+
+input{
+  padding:12px;
+  margin:10px;
+  width:250px;
   border:none;
-  border-radius:10px;
+  border-radius:8px;
+  background:#1e293b;
   color:white;
-  font-size:18px;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:8px;
+  background:#22c55e;
+  color:white;
+  cursor:pointer;
+}
+
+/* DASHBOARD */
+.dashboard{ padding:20px; }
+
+.saldo{
+  border:1px solid #22c55e;
+  padding:20px;
+  border-radius:10px;
+  box-shadow:0 0 15px #22c55e55;
+}
+
+/* GRID */
+.jogos{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+
+.card{
+  border:1px solid #22c55e;
+  padding:20px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px #22c55e;
+}
+
+/* SLOT */
+.slot{ font-size:50px; margin:20px; }
+
+.spin{ animation:spin 0.1s infinite linear; }
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* ROLETA */
+.roleta{ font-size:60px; margin:20px; }
+
+/* MOEDAS */
+.moeda{
+  position:fixed;
+  font-size:25px;
+  animation:queda 1s linear;
+}
+
+@keyframes queda{
+  0%{transform:translateY(-50px);}
+  100%{transform:translateY(300px); opacity:0;}
+}
+
+/* HISTÓRICO */
+.historico{
+  margin-top:20px;
+  font-size:12px;
+  text-align:left;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🔥 Plataforma Bet 🔥</h1>
-<p>Site online 🚀</p>
+<div class="topo">
+  <div class="logo">🔥 BET MASTER</div>
+</div>
 
-<button class="botao">Entrar</button>
+<!-- LOGIN -->
+<div class="tela" id="login">
+  <h2>Login</h2>
+  <input id="user" placeholder="Usuário">
+  <input id="pass" type="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <p onclick="mostrar('cadastro')">Criar conta</p>
+  <p onclick="mostrar('recuperar')">Esqueci senha</p>
+</div>
+
+<!-- CADASTRO -->
+<div class="tela" id="cadastro">
+  <h2>Cadastro</h2>
+  <input id="newUser" placeholder="Usuário">
+  <input id="newPass" type="password" placeholder="Senha">
+  <button onclick="cadastrar()">Cadastrar</button>
+</div>
+
+<!-- RECUPERAR -->
+<div class="tela" id="recuperar">
+  <h2>Recuperar senha</h2>
+  <input placeholder="Digite seu usuário">
+  <button onclick="alert('Recuperação simulada')">Recuperar</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="tela dashboard" id="dashboard">
+
+<div class="saldo">
+💰 Saldo: R$ <span id="saldo">100</span><br><br>
+<button onclick="depositar()">+100</button>
+<button onclick="sacar()">-100</button>
+</div>
+
+<h3>🎮 Jogos</h3>
+
+<div class="jogos">
+<div class="card" onclick="mostrar('slot')">🎰 Slot</div>
+<div class="card" onclick="mostrar('roleta')">🎡 Roleta</div>
+</div>
+
+<div class="historico" id="historico"></div>
+
+</div>
+
+<!-- SLOT -->
+<div class="tela" id="slot">
+<h2>🎰 Slot</h2>
+<div id="slotIcon" class="slot">🍒</div>
+<button onclick="girarSlot()">GIRAR</button><br><br>
+<button onclick="mostrar('dashboard')">Voltar</button>
+</div>
+
+<!-- ROLETA -->
+<div class="tela" id="roleta">
+<h2>🎡 Roleta</h2>
+<div id="roletaIcon" class="roleta">🔴</div>
+<button onclick="girarRoleta()">GIRAR</button><br><br>
+<button onclick="mostrar('dashboard')">Voltar</button>
+</div>
+
+<audio id="winSound" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-coin-2016.mp3"></audio>
+<audio id="spinSound" src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-spin-1934.mp3"></audio>
+
+<script>
+
+let saldo = parseInt(localStorage.getItem("saldo")) || 100;
+let historico = [];
+
+function mostrar(t){
+  document.querySelectorAll('.tela').forEach(x=>x.style.display='none');
+  document.getElementById(t).style.display='block';
+}
+
+mostrar('login');
+
+// CADASTRO
+function cadastrar(){
+  localStorage.setItem("user", newUser.value);
+  localStorage.setItem("pass", newPass.value);
+  alert("Conta criada");
+  mostrar('login');
+}
+
+// LOGIN
+function login(){
+  if(user.value === localStorage.getItem("user") &&
+     pass.value === localStorage.getItem("pass")){
+    atualizar();
+    mostrar('dashboard');
+  } else alert("Login inválido");
+}
+
+// ATUALIZAR
+function atualizar(){
+  document.getElementById("saldo").innerText = saldo;
+  localStorage.setItem("saldo", saldo);
+}
+
+// SLOT
+function girarSlot(){
+  spinSound.play();
+  let el = document.getElementById("slotIcon");
+  el.classList.add("spin");
+
+  setTimeout(()=>{
+    el.classList.remove("spin");
+
+    if(Math.random()>0.7){
+      let ganho = Math.floor(Math.random()*150);
+      saldo += ganho;
+      el.innerText="💰";
+      winSound.play();
+      moedas();
+      addHist("Slot ganhou "+ganho);
+    }else{
+      let perda = Math.floor(Math.random()*80);
+      saldo -= perda;
+      el.innerText="💀";
+      addHist("Slot perdeu "+perda);
+    }
+
+    atualizar();
+  },1500);
+}
+
+// ROLETA
+function girarRoleta(){
+  spinSound.play();
+  let el = document.getElementById("roletaIcon");
+  let cores = ["🔴","⚫","🟢"];
+
+  let i=0;
+  let interval = setInterval(()=>{
+    el.innerText = cores[i++%3];
+  },100);
+
+  setTimeout(()=>{
+    clearInterval(interval);
+
+    if(Math.random()>0.6){
+      saldo += 200;
+      winSound.play();
+      moedas();
+      addHist("Roleta ganhou 200");
+    }else{
+      saldo -= 100;
+      addHist("Roleta perdeu 100");
+    }
+
+    atualizar();
+  },2000);
+}
+
+// MOEDAS
+function moedas(){
+  for(let i=0;i<10;i++){
+    let m = document.createElement("div");
+    m.innerText="💰";
+    m.className="moeda";
+    m.style.left=Math.random()*90+"%";
+    document.body.appendChild(m);
+    setTimeout(()=>m.remove(),1000);
+  }
+}
+
+// HISTÓRICO
+function addHist(t){
+  historico.push(t);
+  document.getElementById("historico").innerHTML = historico.join("<br>");
+}
+
+// DEP/SAC
+function depositar(){ saldo+=100; atualizar(); }
+function sacar(){ saldo-=100; atualizar(); }
+
+</script>
 
 </body>
-</html>
+    </html>
